@@ -5,9 +5,8 @@ import Card from "../UI/Card";
 
 function ExpenseList(prop) {
     let allExpenseItems = []
-    console.log(prop.expenses)
     prop.expenses.forEach(function (element, idx) {
-        allExpenseItems.push(<ExpenseItem className={"expenses"} key={"expense" + idx} description={element.description}
+        allExpenseItems.push(<ExpenseItem className={"expenses"} key={"expense" + idx} title={element.title}
                                           amount={element.amount}
                                           date={element.date}></ExpenseItem>)
     })
