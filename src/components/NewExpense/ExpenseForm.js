@@ -6,7 +6,7 @@ import {useState} from "react";
 function ExpenseForm() {
 
 
-    const [desc, setDesc] = useState("New Entry")
+    const [desc, setDesc] = useState("New Expense")
     const [date, setDate] = useState(new Date(2019, 0, 1))
     const [amount, setAmount] = useState(0)
 
