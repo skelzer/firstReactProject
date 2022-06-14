@@ -12,16 +12,28 @@ function ExpenseForm(props) {
     }
 
     function amountHandler(event) {
-        setUserInput(prevState => ({...prevState, amount: parseFloat(event.target.value)}))    }
+        setUserInput(prevState => ({...prevState, amount: parseFloat(event.target.value)}))
+    }
 
     function dateHandler(event) {
-        setUserInput(prevState => ({...prevState, date: new Date(event.target.value)}))    }
+        const newDate = event.target.value
+        if (Date.parse(newDate)) {
+            setUserInput(prevState => ({...prevState, date: new Date(event.target.value)}))
+        }
+    }
 
     function submittedFormHandler(event) {
         event.preventDefault()
-        setUserInput({title: "New Expense", date: new Date(), amount: 0})
+        props.onStopEdit()
         props.onSaveExpenseData(userInput)
+        setUserInput({title: "New Expense", date: new Date(), amount: 0})
     }
+
+    function cancelButtonHandler() {
+        setUserInput({title: "New Expense", date: new Date(), amount: 0})
+        props.onStopEdit()
+    }
+
 
     return <form onSubmit={submittedFormHandler}>
         <div className={"new-expense__controls"}>
@@ -35,7 +47,11 @@ function ExpenseForm(props) {
             </div>
             <div className={"new-expense__controls"}>
                 <label>Date</label>
-                <input type="date" min={"2019-01-01"} max={"2022-12-31"} onChange={dateHandler} value={userInput.date.toISOString().slice(0,10)}/>
+                <input type="date" min={"2019-01-01"} max={"2022-12-31"} onChange={dateHandler}
+                       value={userInput.date.toISOString().slice(0, 10)}/>
+            </div>
+            <div className={"new-expense__actions"}>
+                <button type={"button"} onClick={cancelButtonHandler}>Cancel</button>
             </div>
             <div className={"new-expense__actions"}>
                 <button type={"submit"}>Submit</button>
