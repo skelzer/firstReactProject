@@ -16,7 +16,7 @@ const App = () => {
     const [state, setState] = useState(expenses)
 
     function saveExpenseDataHandler (enteredExpenseData){
-        setState([...state, enteredExpenseData])
+        setState(function(prevState) {setState([...prevState, enteredExpenseData])})
     }
     return <div>
         <ExpenseList expenses={state}/>
