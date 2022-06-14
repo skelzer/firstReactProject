@@ -5,22 +5,21 @@ import {useState} from "react";
 
 function ExpenseForm(props) {
 
-    const [userInput, setUserInput] = useState({title: "New Expense", date: new Date(2019, 0, 1), amount: 0})
+    const [userInput, setUserInput] = useState({title: "New Expense", date: new Date(), amount: 0})
 
     function titleHandler(event) {
         setUserInput(prevState => ({...prevState, title: event.target.value}))
     }
 
     function amountHandler(event) {
-        setUserInput(prevState => ({...prevState, amount: event.target.value}))    }
+        setUserInput(prevState => ({...prevState, amount: parseFloat(event.target.value)}))    }
 
     function dateHandler(event) {
-        console.log(event.target.value)
         setUserInput(prevState => ({...prevState, date: new Date(event.target.value)}))    }
 
     function submittedFormHandler(event) {
         event.preventDefault()
-        setUserInput({title: "New Expense", date: new Date(2019, 0, 1), amount: 0})
+        setUserInput({title: "New Expense", date: new Date(), amount: 0})
         props.onSaveExpenseData(userInput)
     }
 
@@ -43,7 +42,7 @@ function ExpenseForm(props) {
             </div>
         </div>
         <div>
-            <ExpenseItem className={"expenses"} description={userInput.title}
+            <ExpenseItem className={"expenses"} title={userInput.title}
                          amount={userInput.amount}
                          date={userInput.date}></ExpenseItem>
         </div>
